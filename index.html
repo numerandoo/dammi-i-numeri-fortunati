@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dammi i Numeri Fortunati</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #4a57b2;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background-color: #4958a5;
+            color: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+        }
+
+        h1 {
+            background-color: #a020f0;
+            color: white;
+            padding: 15px;
+            border-radius: 8px 8px 0 0;
+            margin-top: 0;
+            font-size: 24px;
+        }
+
+        .settings {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .settings label {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .settings input {
+            width: 100px;
+            padding: 8px;
+            font-size: 16px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .settings select {
+            padding: 10px;
+            width: 60%;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+
+        /* Campo di esclusione numeri */
+        #escludi-container {
+            margin-top: 15px;
+            display: none; /* Reso invisibile */
+        }
+
+        /* Pallino per mostrare/nascondere i numeri esclusi */
+        .pallino {
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            display: inline-block;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .button {
+            padding: 12px 20px;
+            background-color: #a020f0;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background-color: #8713d1;
+        }
+
+        .numeri {
+            margin-top: 20px;
+        }
+
+        /* Seconda schermata */
+        .hidden {
+            display: none;
+        }
+
+        /* Styling dei numeri generati in verticale */
+        .numeri-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .numero {
+            font-size: 20px;
+            color: white;
+            background-color: transparent;
+            padding: 10px;
+            margin: 5px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Prima schermata -->
+    <div class="container" id="primaSchermata">
+        <h1>Dammi i Numeri Fortunati</h1>
+
+        <div class="settings">
+            <label>Intervallo dei Numeri</label>
+            <div>
+                <label for="min">Da</label>
+                <input type="number" id="min" min="1" max="90" value="1">
+                <label for="max">A</label>
+                <input type="number" id="max" min="1" max="90" value="90">
+            </div>
+        </div>
+
+        <div class="settings">
+            <label>Quanti numeri fortunati vuoi?</label>
+            <select id="quantita">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+
+        <!-- Pallino per escludere numeri -->
+        <div class="pallino" onclick="toggleEscludi()"></div>
+
+        <!-- Campo per escludere i numeri -->
+        <div id="escludi-container">
+            <label for="escludi">Numeri da escludere (separati da virgola):</label>
+            <input type="text" id="escludi" placeholder="Esempio: 5, 12, 23">
+        </div>
+
+        <button class="button" onclick="vaiAllaSecondaSchermata()">Dammi i Numeri Fortunati</button>
+    </div>
+
+    <!-- Seconda schermata -->
+    <div class="container hidden" id="secondaSchermata">
+        <h1>Numeri Generati</h1>
+        <div class="numeri-container" id="numeriGenerati"></div>
+        <button class="button" onclick="tornaAllaPrimaSchermata()">Torna Indietro</button>
+    </div>
+
+    <script>
+        function generaNumeri(quantita, min, max, esclusi) {
+            const numeri = [];
+            while (numeri.length < quantita) {
+                const num = Math.floor(Math.random() * (max - min + 1)) + min;
+                if (!esclusi.includes(num) && !numeri.includes(num)) {
+                    numeri.push(num);
+                }
+            }
+            return numeri;
+        }
+
+        function vaiAllaSecondaSchermata() {
+            const quantita = parseInt(document.getElementById("quantita").value);
+            const min = parseInt(document.getElementById("min").value);
+            const max = parseInt(document.getElementById("max").value);
+            const esclusi = document.getElementById("escludi").value.split(',').map(Number).filter(n => !isNaN(n));
+
+            if (min >= 1 && max <= 90 && min < max) {
+                const numeri = generaNumeri(quantita, min, max, esclusi);
+                mostraNumeri(numeri);
+                document.getElementById("primaSchermata").classList.add("hidden");
+                document.getElementById("secondaSchermata").classList.remove("hidden");
+            } else {
+                alert("Inserisci un intervallo valido tra 1 e 90!");
+            }
+        }
+
+        function mostraNumeri(numeri) {
+            const numeriContainer = document.getElementById("numeriGenerati");
+            numeriContainer.innerHTML = ''; // Pulisce eventuali numeri precedenti
+            numeri.forEach(numero => {
+                const numeroElement = document.createElement("div");
+                numeroElement.classList.add("numero");
+                numeroElement.textContent = numero;
+                numeriContainer.appendChild(numeroElement);
+            });
+        }
+
+        function tornaAllaPrimaSchermata() {
+            document.getElementById("secondaSchermata").classList.add("hidden");
+            document.getElementById("primaSchermata").classList.remove("hidden");
+        }
+
+        function toggleEscludi() {
+            const escludiContainer = document.getElementById("escludi-container");
+            if (escludiContainer.style.display === "none" || escludiContainer.style.display === "") {
+                escludiContainer.style.display = "block";
+            } else {
+                escludiContainer.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
