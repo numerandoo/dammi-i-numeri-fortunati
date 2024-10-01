@@ -16,6 +16,25 @@
             align-items: center;
         }
 
+        .layout {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .ad-column {
+            width: 20%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .content-column {
+            width: 60%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
         .container {
             background-color: #4958a5;
             color: white;
@@ -23,8 +42,6 @@
             text-align: center;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-width: 600px;
         }
 
         h1 {
@@ -68,13 +85,11 @@
             font-size: 16px;
         }
 
-        /* Campo di esclusione numeri */
         #escludi-container {
             margin-top: 15px;
-            display: none; /* Reso invisibile */
+            display: none;
         }
 
-        /* Pallino per mostrare/nascondere i numeri esclusi */
         .pallino {
             width: 20px;
             height: 20px;
@@ -104,12 +119,10 @@
             margin-top: 20px;
         }
 
-        /* Seconda schermata */
         .hidden {
             display: none;
         }
 
-        /* Styling dei numeri generati in verticale */
         .numeri-container {
             display: flex;
             flex-direction: column;
@@ -125,57 +138,119 @@
             margin: 5px 0;
             text-align: center;
         }
+
+        /* Pubblicità */
+        .ad {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: white;
+            color: black;
+        }
+
+        .ad h3 {
+            font-size: 18px;
+            margin: 0 0 10px 0;
+        }
+
+        .ad p {
+            margin: 0 0 10px 0;
+        }
+
+        .ad a {
+            color: blue;
+            text-decoration: underline;
+        }
+
     </style>
 </head>
 <body>
 
-    <!-- Prima schermata -->
-    <div class="container" id="primaSchermata">
-        <h1>Dammi i Numeri Fortunati</h1>
-
-        <div class="settings">
-            <label>Intervallo dei Numeri</label>
-            <div>
-                <label for="min">Da</label>
-                <input type="number" id="min" min="1" max="90" value="1">
-                <label for="max">A</label>
-                <input type="number" id="max" min="1" max="90" value="90">
+    <div class="layout">
+        <!-- Colonna pubblicità sinistra -->
+        <div class="ad-column">
+            <div class="ad">
+                <h3>Corso di grafica 3D</h3>
+                <p>Impara a creare modelli 3D con i migliori software. Corso online disponibile ora.</p>
+                <a href="#">Scopri di più</a>
+            </div>
+            <div class="ad">
+                <h3>Vacanze invernali a prezzi scontati</h3>
+                <p>Prenota la tua vacanza da sogno con il 40% di sconto.</p>
+                <a href="#">Prenota subito</a>
             </div>
         </div>
 
-        <div class="settings">
-            <label>Quanti numeri fortunati vuoi?</label>
-            <select id="quantita">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
+        <!-- Colonna contenuto centrale -->
+        <div class="content-column">
+            <!-- Prima schermata -->
+            <div class="container" id="primaSchermata">
+                <h1>Dammi i Numeri Fortunati</h1>
+
+                <div class="settings">
+                    <label>Intervallo dei Numeri</label>
+                    <div>
+                        <label for="min">Da</label>
+                        <input type="number" id="min" min="1" max="90" value="1">
+                        <label for="max">A</label>
+                        <input type="number" id="max" min="1" max="90" value="90">
+                    </div>
+                </div>
+
+                <div class="settings">
+                    <label>Quanti numeri fortunati vuoi?</label>
+                    <select id="quantita">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+
+                <div class="pallino" onclick="toggleEscludi()"></div>
+
+                <div id="escludi-container">
+                    <label for="escludi">Numeri da escludere (separati da virgola):</label>
+                    <input type="text" id="escludi" placeholder="Esempio: 5, 12, 23">
+                </div>
+
+                <button class="button" onclick="vaiAllaSecondaSchermata()">Dammi i Numeri Fortunati</button>
+            </div>
+
+            <!-- Seconda schermata -->
+            <div class="container hidden" id="secondaSchermata">
+                <h1>Numeri Generati</h1>
+                <div class="numeri-container" id="numeriGenerati"></div>
+                <button class="button" onclick="tornaAllaPrimaSchermata()">Torna Indietro</button>
+            </div>
+
+            <!-- Pubblicità in fondo -->
+            <div class="ad">
+                <h3>Viaggia e risparmia!</h3>
+                <p>Prenota ora e ottieni sconti del 30% su hotel e voli.</p>
+                <a href="#">Prenota ora</a>
+            </div>
         </div>
 
-        <!-- Pallino per escludere numeri -->
-        <div class="pallino" onclick="toggleEscludi()"></div>
-
-        <!-- Campo per escludere i numeri -->
-        <div id="escludi-container">
-            <label for="escludi">Numeri da escludere (separati da virgola):</label>
-            <input type="text" id="escludi" placeholder="Esempio: 5, 12, 23">
+        <!-- Colonna pubblicità destra -->
+        <div class="ad-column">
+            <div class="ad">
+                <h3>Nuovi arrivi in abbigliamento</h3>
+                <p>Scopri le nuove collezioni autunno/inverno e approfitta degli sconti.</p>
+                <a href="#">Acquista ora</a>
+            </div>
+            <div class="ad">
+                <h3>Lezioni private di matematica</h3>
+                <p>Lezioni personalizzate per studenti di ogni livello. Online e in presenza.</p>
+                <a href="#">Prenota la tua lezione</a>
+            </div>
         </div>
-
-        <button class="button" onclick="vaiAllaSecondaSchermata()">Dammi i Numeri Fortunati</button>
-    </div>
-
-    <!-- Seconda schermata -->
-    <div class="container hidden" id="secondaSchermata">
-        <h1>Numeri Generati</h1>
-        <div class="numeri-container" id="numeriGenerati"></div>
-        <button class="button" onclick="tornaAllaPrimaSchermata()">Torna Indietro</button>
     </div>
 
     <script>
@@ -208,7 +283,7 @@
 
         function mostraNumeri(numeri) {
             const numeriContainer = document.getElementById("numeriGenerati");
-            numeriContainer.innerHTML = ''; // Pulisce eventuali numeri precedenti
+            numeriContainer.innerHTML = '';
             numeri.forEach(numero => {
                 const numeroElement = document.createElement("div");
                 numeroElement.classList.add("numero");
@@ -231,6 +306,5 @@
             }
         }
     </script>
-
 </body>
 </html>
