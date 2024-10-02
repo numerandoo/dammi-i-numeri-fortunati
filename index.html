@@ -18,7 +18,7 @@
         }
 
         .container {
-            background-color: #4958a5;
+            background-color: #5263BD; /* Cambiato sfondo */
             color: white;
             padding: 20px;
             text-align: center;
@@ -29,7 +29,7 @@
         }
 
         h1 {
-            background-color: #a020f0;
+            background-color: #9c27b0; /* Cambiato colore titolo per abbinarlo al pulsante */
             color: white;
             padding: 15px;
             border-radius: 0px;
@@ -81,7 +81,7 @@
 
         .button {
             padding: 12px 20px;
-            background-color: #a020f0;
+            background-color: #9c27b0; /* Stesso colore per entrambi i pulsanti */
             color: white;
             border: none;
             cursor: pointer;
@@ -117,29 +117,36 @@
             padding: 10px;
             margin-bottom: 20px;
             text-align: center;
+            border-radius: 10px; /* Cambiato per riquadri più morbidi */
         }
 
         /* Popup per i cookies */
         #cookiePopup {
             position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #fff;
+            top: 0; /* Posizionato in alto */
+            left: 0; /* Posizionato a sinistra */
+            width: 100%; /* Copre l'intera larghezza */
+            height: 100%; /* Copre l'intera altezza */
+            background-color: rgba(255, 255, 255, 0.9); /* Sfondo semi-trasparente */
             color: #000;
             padding: 15px;
             border: 1px solid #ccc;
-            border-radius: 5px;
             display: none;
             z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
         }
 
         #cookiePopup button {
-            background-color: #a020f0;
+            background-color: #9c27b0; /* Stesso colore dei pulsanti */
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 10px 20px; /* Aumentato il padding per i pulsanti */
             cursor: pointer;
+            margin: 10px; /* Spaziatura tra i pulsanti */
+            font-size: 18px; /* Aumentato il font */
         }
 
         .ad-link {
@@ -154,8 +161,9 @@
             color: black;
             padding: 10px;
             text-align: center;
-            margin: 10px;
-            flex: 1; /* Permette di adattarsi alla larghezza disponibile */
+            margin: 10px 0; /* Spaziatura verticale */
+            border-radius: 10px; /* Cambiato per riquadri più morbidi */
+            width: 150px; /* Larghezza fissa per le pubblicità */
         }
 
         /* Layout delle pubblicità laterali */
@@ -163,11 +171,28 @@
             display: flex;
             justify-content: space-between;
             width: 100%;
+            flex-wrap: wrap; /* Permette il wrapping delle pubblicità */
+            position: absolute;
+            top: 50%; /* Posizionato a metà pagina */
+            transform: translateY(-50%); /* Centra verticalmente */
+            left: 10px; /* Distanza dalla sinistra */
+            right: 10px; /* Distanza dalla destra */
         }
 
         /* Nasconde la seconda schermata */
         .hidden {
             display: none;
+        }
+
+        /* Contenitore delle pubblicità laterali per tutte le schermate */
+        .side-ads {
+            display: flex;
+            flex-direction: column; /* Colonne per le pubblicità */
+            align-items: flex-start; /* Allinea a sinistra */
+            position: absolute;
+            top: 20px; /* Margine superiore */
+            height: calc(100% - 40px); /* L'altezza della finestra */
+            z-index: 1; /* Sotto i contenuti principali */
         }
     </style>
 </head>
@@ -175,93 +200,78 @@
 
     <!-- Popup per i cookies -->
     <div id="cookiePopup">
-        Questo sito utilizza i cookie per offrirti un'esperienza migliore. 
-        <button onclick="accettaCookies()">Accetta</button>
-        <button onclick="rifiutaCookies()">Rifiuta</button>
+        <p>Questo sito utilizza i cookie per migliorare l'esperienza dell'utente. Utilizziamo i cookie per raccogliere informazioni sulle modalità di utilizzo del sito, per consentire funzionalità di social media e per analizzare il nostro traffico. Condividiamo anche informazioni sul modo in cui utilizzi il nostro sito con i nostri partner di social media, pubblicità e analisi, i quali potrebbero combinarle con altre informazioni che hai fornito loro o che hanno raccolto dal tuo utilizzo dei loro servizi. Puoi accettare o rifiutare i cookie modificando le impostazioni del tuo browser.</p>
+        <p>Per ulteriori informazioni, puoi consultare la nostra <a href="#" class="ad-link">Informativa sulla Privacy</a>.</p>
+        <button onclick="accettaCookies()">Accetta Cookies</button>
+        <button onclick="rifiutaCookies()">Rifiuta Cookies</button>
     </div>
 
     <!-- Pubblicità in alto -->
     <div class="ad-banner">
-        <strong>Offerta esclusiva!</strong> Scopri come raddoppiare le tue vincite <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">cliccando qui</span>!
+        <strong>Incredibile Offerta!</strong> Prova il nostro nuovo servizio di streaming video. <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">Clicca qui per iniziare la prova gratuita!</span>
     </div>
 
     <!-- Layout principale con pubblicità laterali -->
     <div class="sidebar-container">
-        <div class="sidebar">
-            <div class="sidebar-ad">
-                <strong>Investi nel tuo futuro!</strong> Scopri i nostri corsi di formazione per migliorare le tue capacità nel gioco. <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">Clicca qui per saperne di più</span>.
-            </div>
-            <div class="sidebar-ad">
-                <strong>Gioca responsabilmente!</strong> Leggi i nostri consigli su come gestire il tuo budget di gioco. <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">Clicca qui per scoprire di più</span>.
-            </div>
+        <div class="sidebar-ad">
+            <strong>Fai il pieno di energia!</strong> Scopri i nostri integratori naturali. <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">Clicca qui!</span>
         </div>
-
-        <!-- Prima schermata -->
-        <div class="container" id="primaSchermata">
-            <h1>Dammi i Numeri Fortunati</h1>
-
-            <div class="settings">
-                <label>Intervallo dei Numeri</label>
-                <div>
-                    <label for="min">Da</label>
-                    <input type="number" id="min" min="1" max="90" value="1">
-                    <label for="max">A</label>
-                    <input type="number" id="max" min="1" max="90" value="90">
-                </div>
-            </div>
-
-            <div class="settings">
-                <label>Quanti numeri fortunati vuoi?</label>
-                <select id="quantita">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
-            </div>
-
-            <div class="pallino" onclick="toggleEscludi()"></div>
-
-            <div id="escludi-container" style="display: none;">
-                <label for="escludi">Numeri da escludere (separati da virgola):</label>
-                <input type="text" id="escludi" placeholder="Esempio: 5, 12, 23">
-            </div>
-
-            <button class="button" onclick="vaiAllaSecondaSchermata()">Dammi i Numeri Fortunati</button>
-        </div>
-
-        <!-- Seconda schermata -->
-        <div class="container hidden" id="secondaSchermata">
-            <h1>Numeri Generati</h1>
-            <div class="numeri-container" id="numeriGenerati"></div>
-            <button class="button" onclick="tornaAllaPrimaSchermata()">Torna Indietro</button>
-        </div>
-
-        <div class="sidebar">
-            <div class="sidebar-ad">
-                <strong>Scopri la nostra nuova app!</strong> Rimanere aggiornato sulle ultime offerte e promozioni. <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">Clicca qui per scaricarla</span>.
-            </div>
-            <div class="sidebar-ad">
-                <strong>Non perdere l'occasione!</strong> Ricevi un bonus di benvenuto del 100% sul tuo primo deposito. <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">Clicca qui per registrarti</span>.
-            </div>
+        <div class="sidebar-ad">
+            <strong>Un viaggio da sogno!</strong> Prenota ora e ottieni un'offerta esclusiva per la tua prossima avventura. <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">Clicca qui per maggiori dettagli!</span>
         </div>
     </div>
 
-    <!-- Pubblicità in basso -->
-    <div class="ad-banner">
-        <strong>Offerta imperdibile!</strong> Iscriviti ora e ottieni accesso a offerte esclusive di giochi <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">cliccando qui</span>!
+    <!-- Prima schermata -->
+    <div class="container" id="primaSchermata">
+        <h1>Dammi i Numeri Fortunati</h1>
+
+        <div class="settings">
+            <label>Intervallo dei Numeri</label>
+            <div>
+                <label for="min">Da</label>
+                <input type="number" id="min" min="1" max="90" value="1">
+                <label for="max">A</label>
+                <input type="number" id="max" min="1" max="90" value="90">
+            </div>
+        </div>
+
+        <div class="settings">
+            <label>Quanti numeri fortunati vuoi?</label>
+            <select id="quantita">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option> <!-- Aumentato a 10 -->
+            </select>
+        </div>
+
+        <div class="settings">
+            <div id="escludi-container" style="display: none;">
+                <input type="text" id="escludi" placeholder="Esempio: 1, 5, 10">
+            </div>
+            <span class="pallino" onclick="toggleEscludi()"></span> <!-- Pallino bianco -->
+        </div>
+
+        <button class="button" onclick="vaiAllaSecondaSchermata()">Dammi i Numeri Fortunati</button>
+    </div>
+
+    <!-- Seconda schermata -->
+    <div class="container hidden" id="secondaSchermata">
+        <h1>Numeri Fortunati Generati</h1>
+        <div class="numeri-container" id="numeriGenerati"></div>
+        <button class="button" onclick="tornaAllaPrimaSchermata()">Torna Indietro</button>
     </div>
 
     <script>
         function generaNumeri(quantita, min, max, esclusi) {
             const numeriGenerati = [];
-            const esclusiSet = new Set(esclusi.map(Number));
+            const esclusiSet = new Set(esclusi);
 
             while (numeriGenerati.length < quantita) {
                 const numero = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -305,9 +315,10 @@
         }
 
         window.onload = function() {
-            document.getElementById("cookiePopup").style.display = "block";
+            document.getElementById("cookiePopup").style.display = "flex"; // Mostra il popup come flex
         }
     </script>
 </body>
 </html>
+
 
