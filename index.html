@@ -6,7 +6,7 @@
     <title>Dammi i Numeri Fortunati</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Times New Roman", Times, serif; /* Cambiato font */
             margin: 0;
             padding: 0;
             background-color: #4a57b2;
@@ -14,41 +14,25 @@
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-
-        .layout {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 1200px;
-        }
-
-        .ad-column {
-            width: 20%;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-
-        .content-column {
-            width: 60%;
-            padding: 10px;
-            box-sizing: border-box;
+            flex-direction: column;
         }
 
         .container {
             background-color: #4958a5;
             color: white;
-            padding: 40px;
+            padding: 20px;
             text-align: center;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 0px;
+            width: 90%; /* Rende la larghezza mobile-friendly */
+            max-width: 600px;
+            position: relative;
         }
 
         h1 {
             background-color: #a020f0;
             color: white;
             padding: 15px;
-            border-radius: 8px 8px 0 0;
+            border-radius: 0px;
             margin-top: 0;
             font-size: 24px;
         }
@@ -72,7 +56,6 @@
             font-size: 16px;
             margin: 5px;
             border: 1px solid #ccc;
-            border-radius: 5px;
             text-align: center;
         }
 
@@ -80,16 +63,12 @@
             padding: 10px;
             width: 60%;
             margin: 10px 0;
-            border-radius: 5px;
+            border-radius: 0px;
             border: none;
             font-size: 16px;
         }
 
-        #escludi-container {
-            margin-top: 15px;
-            display: none;
-        }
-
+        /* Pallino per escludere numeri */
         .pallino {
             width: 20px;
             height: 20px;
@@ -107,7 +86,6 @@
             border: none;
             cursor: pointer;
             font-size: 18px;
-            border-radius: 5px;
             margin-top: 20px;
         }
 
@@ -115,14 +93,7 @@
             background-color: #8713d1;
         }
 
-        .numeri {
-            margin-top: 20px;
-        }
-
-        .hidden {
-            display: none;
-        }
-
+        /* Numeri generati */
         .numeri-container {
             display: flex;
             flex-direction: column;
@@ -140,156 +111,179 @@
         }
 
         /* Pubblicità */
-        .ad {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
-            background-color: white;
+        .ad-banner {
+            background-color: #ddd;
             color: black;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
         }
 
-        .ad h3 {
-            font-size: 18px;
-            margin: 0 0 10px 0;
+        /* Popup per i cookies */
+        #cookiePopup {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            color: #000;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: none;
+            z-index: 1000;
         }
 
-        .ad p {
-            margin: 0 0 10px 0;
+        #cookiePopup button {
+            background-color: #a020f0;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
         }
 
-        .ad a {
+        .ad-link {
             color: blue;
             text-decoration: underline;
+            cursor: pointer;
         }
 
+        /* Pubblicità laterali */
+        .sidebar-ad {
+            background-color: #ddd;
+            color: black;
+            padding: 10px;
+            text-align: center;
+            margin: 10px;
+            flex: 1; /* Permette di adattarsi alla larghezza disponibile */
+        }
+
+        /* Layout delle pubblicità laterali */
+        .sidebar-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        /* Nasconde la seconda schermata */
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
 
-    <div class="layout">
-        <!-- Colonna pubblicità sinistra -->
-        <div class="ad-column">
-            <div class="ad">
-                <h3>Corso di grafica 3D</h3>
-                <p>Impara a creare modelli 3D con i migliori software. Corso online disponibile ora.</p>
-                <a href="#">Scopri di più</a>
+    <!-- Popup per i cookies -->
+    <div id="cookiePopup">
+        Questo sito utilizza i cookie per offrirti un'esperienza migliore. 
+        <button onclick="accettaCookies()">Accetta</button>
+        <button onclick="rifiutaCookies()">Rifiuta</button>
+    </div>
+
+    <!-- Pubblicità in alto -->
+    <div class="ad-banner">
+        <strong>Offerta esclusiva!</strong> Scopri come raddoppiare le tue vincite <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">cliccando qui</span>!
+    </div>
+
+    <!-- Layout principale con pubblicità laterali -->
+    <div class="sidebar-container">
+        <div class="sidebar">
+            <div class="sidebar-ad">
+                <strong>Investi nel tuo futuro!</strong> Scopri i nostri corsi di formazione per migliorare le tue capacità nel gioco. <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">Clicca qui per saperne di più</span>.
             </div>
-            <div class="ad">
-                <h3>Vacanze invernali a prezzi scontati</h3>
-                <p>Prenota la tua vacanza da sogno con il 40% di sconto.</p>
-                <a href="#">Prenota subito</a>
-            </div>
-        </div>
-
-        <!-- Colonna contenuto centrale -->
-        <div class="content-column">
-            <!-- Prima schermata -->
-            <div class="container" id="primaSchermata">
-                <h1>Dammi i Numeri Fortunati</h1>
-
-                <div class="settings">
-                    <label>Intervallo dei Numeri</label>
-                    <div>
-                        <label for="min">Da</label>
-                        <input type="number" id="min" min="1" max="90" value="1">
-                        <label for="max">A</label>
-                        <input type="number" id="max" min="1" max="90" value="90">
-                    </div>
-                </div>
-
-                <div class="settings">
-                    <label>Quanti numeri fortunati vuoi?</label>
-                    <select id="quantita">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                    </select>
-                </div>
-
-                <div class="pallino" onclick="toggleEscludi()"></div>
-
-                <div id="escludi-container">
-                    <label for="escludi">Numeri da escludere (separati da virgola):</label>
-                    <input type="text" id="escludi" placeholder="Esempio: 5, 12, 23">
-                </div>
-
-                <button class="button" onclick="vaiAllaSecondaSchermata()">Dammi i Numeri Fortunati</button>
-            </div>
-
-            <!-- Seconda schermata -->
-            <div class="container hidden" id="secondaSchermata">
-                <h1>Numeri Generati</h1>
-                <div class="numeri-container" id="numeriGenerati"></div>
-                <button class="button" onclick="tornaAllaPrimaSchermata()">Torna Indietro</button>
-            </div>
-
-            <!-- Pubblicità in fondo -->
-            <div class="ad">
-                <h3>Viaggia e risparmia!</h3>
-                <p>Prenota ora e ottieni sconti del 30% su hotel e voli.</p>
-                <a href="#">Prenota ora</a>
+            <div class="sidebar-ad">
+                <strong>Gioca responsabilmente!</strong> Leggi i nostri consigli su come gestire il tuo budget di gioco. <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">Clicca qui per scoprire di più</span>.
             </div>
         </div>
 
-        <!-- Colonna pubblicità destra -->
-        <div class="ad-column">
-            <div class="ad">
-                <h3>Nuovi arrivi in abbigliamento</h3>
-                <p>Scopri le nuove collezioni autunno/inverno e approfitta degli sconti.</p>
-                <a href="#">Acquista ora</a>
+        <!-- Prima schermata -->
+        <div class="container" id="primaSchermata">
+            <h1>Dammi i Numeri Fortunati</h1>
+
+            <div class="settings">
+                <label>Intervallo dei Numeri</label>
+                <div>
+                    <label for="min">Da</label>
+                    <input type="number" id="min" min="1" max="90" value="1">
+                    <label for="max">A</label>
+                    <input type="number" id="max" min="1" max="90" value="90">
+                </div>
             </div>
-            <div class="ad">
-                <h3>Lezioni private di matematica</h3>
-                <p>Lezioni personalizzate per studenti di ogni livello. Online e in presenza.</p>
-                <a href="#">Prenota la tua lezione</a>
+
+            <div class="settings">
+                <label>Quanti numeri fortunati vuoi?</label>
+                <select id="quantita">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
+
+            <div class="pallino" onclick="toggleEscludi()"></div>
+
+            <div id="escludi-container" style="display: none;">
+                <label for="escludi">Numeri da escludere (separati da virgola):</label>
+                <input type="text" id="escludi" placeholder="Esempio: 5, 12, 23">
+            </div>
+
+            <button class="button" onclick="vaiAllaSecondaSchermata()">Dammi i Numeri Fortunati</button>
+        </div>
+
+        <!-- Seconda schermata -->
+        <div class="container hidden" id="secondaSchermata">
+            <h1>Numeri Generati</h1>
+            <div class="numeri-container" id="numeriGenerati"></div>
+            <button class="button" onclick="tornaAllaPrimaSchermata()">Torna Indietro</button>
+        </div>
+
+        <div class="sidebar">
+            <div class="sidebar-ad">
+                <strong>Scopri la nostra nuova app!</strong> Rimanere aggiornato sulle ultime offerte e promozioni. <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">Clicca qui per scaricarla</span>.
+            </div>
+            <div class="sidebar-ad">
+                <strong>Non perdere l'occasione!</strong> Ricevi un bonus di benvenuto del 100% sul tuo primo deposito. <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">Clicca qui per registrarti</span>.
             </div>
         </div>
     </div>
 
+    <!-- Pubblicità in basso -->
+    <div class="ad-banner">
+        <strong>Offerta imperdibile!</strong> Iscriviti ora e ottieni accesso a offerte esclusive di giochi <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">cliccando qui</span>!
+    </div>
+
     <script>
         function generaNumeri(quantita, min, max, esclusi) {
-            const numeri = [];
-            while (numeri.length < quantita) {
-                const num = Math.floor(Math.random() * (max - min + 1)) + min;
-                if (!esclusi.includes(num) && !numeri.includes(num)) {
-                    numeri.push(num);
+            const numeriGenerati = [];
+            const esclusiSet = new Set(esclusi.map(Number));
+
+            while (numeriGenerati.length < quantita) {
+                const numero = Math.floor(Math.random() * (max - min + 1)) + min;
+                if (!numeriGenerati.includes(numero) && !esclusiSet.has(numero)) {
+                    numeriGenerati.push(numero);
                 }
             }
-            return numeri;
+            return numeriGenerati;
         }
 
         function vaiAllaSecondaSchermata() {
             const quantita = parseInt(document.getElementById("quantita").value);
             const min = parseInt(document.getElementById("min").value);
             const max = parseInt(document.getElementById("max").value);
-            const esclusi = document.getElementById("escludi").value.split(',').map(Number).filter(n => !isNaN(n));
+            const esclusiInput = document.getElementById("escludi").value;
+            const esclusi = esclusiInput.split(",").map(num => num.trim()).filter(num => num !== "").map(Number);
 
-            if (min >= 1 && max <= 90 && min < max) {
-                const numeri = generaNumeri(quantita, min, max, esclusi);
-                mostraNumeri(numeri);
-                document.getElementById("primaSchermata").classList.add("hidden");
-                document.getElementById("secondaSchermata").classList.remove("hidden");
-            } else {
-                alert("Inserisci un intervallo valido tra 1 e 90!");
-            }
-        }
-
-        function mostraNumeri(numeri) {
-            const numeriContainer = document.getElementById("numeriGenerati");
-            numeriContainer.innerHTML = '';
-            numeri.forEach(numero => {
-                const numeroElement = document.createElement("div");
-                numeroElement.classList.add("numero");
-                numeroElement.textContent = numero;
-                numeriContainer.appendChild(numeroElement);
-            });
+            const numeriGenerati = generaNumeri(quantita, min, max, esclusi);
+            const numeriGeneratiDiv = document.getElementById("numeriGenerati");
+            numeriGeneratiDiv.innerHTML = numeriGenerati.map(num => `<div class="numero">${num}</div>`).join("");
+            document.getElementById("primaSchermata").classList.add("hidden");
+            document.getElementById("secondaSchermata").classList.remove("hidden");
         }
 
         function tornaAllaPrimaSchermata() {
@@ -299,12 +293,21 @@
 
         function toggleEscludi() {
             const escludiContainer = document.getElementById("escludi-container");
-            if (escludiContainer.style.display === "none" || escludiContainer.style.display === "") {
-                escludiContainer.style.display = "block";
-            } else {
-                escludiContainer.style.display = "none";
-            }
+            escludiContainer.style.display = escludiContainer.style.display === "none" ? "block" : "none";
+        }
+
+        function accettaCookies() {
+            document.getElementById("cookiePopup").style.display = "none";
+        }
+
+        function rifiutaCookies() {
+            document.getElementById("cookiePopup").style.display = "none";
+        }
+
+        window.onload = function() {
+            document.getElementById("cookiePopup").style.display = "block";
         }
     </script>
 </body>
 </html>
+
