@@ -68,11 +68,10 @@
             font-size: 16px;
         }
 
-        /* Pallino per escludere numeri */
         .pallino {
             width: 20px;
             height: 20px;
-            background-color: #ffffff; /* Colore pallino bianco */
+            background-color: white;
             border-radius: 50%;
             display: inline-block;
             margin-top: 10px;
@@ -93,7 +92,6 @@
             background-color: #8713d1;
         }
 
-        /* Numeri generati */
         .numeri-container {
             display: flex;
             flex-direction: column;
@@ -110,7 +108,6 @@
             text-align: center;
         }
 
-        /* Pubblicità */
         .ad-banner {
             background-color: #ddd;
             color: black;
@@ -120,7 +117,6 @@
             border-radius: 10px;
         }
 
-        /* Popup per i cookies */
         #cookiePopup {
             position: fixed;
             top: 0;
@@ -155,7 +151,6 @@
             cursor: pointer;
         }
 
-        /* Pubblicità laterali */
         .sidebar-ad {
             background-color: #ddd;
             color: black;
@@ -166,7 +161,6 @@
             width: 150px;
         }
 
-        /* Layout delle pubblicità laterali */
         .sidebar-container {
             display: flex;
             justify-content: space-between;
@@ -179,12 +173,10 @@
             right: 10px;
         }
 
-        /* Nasconde la seconda schermata */
         .hidden {
             display: none;
         }
 
-        /* Contenitore delle pubblicità laterali per tutte le schermate */
         .side-ads {
             display: flex;
             flex-direction: column;
@@ -198,20 +190,16 @@
 </head>
 <body>
 
-    <!-- Popup per i cookies -->
     <div id="cookiePopup">
-        <p>Questo sito utilizza i cookie per migliorare l'esperienza dell'utente. Utilizziamo i cookie per raccogliere informazioni sulle modalità di utilizzo del sito, per consentire funzionalità di social media e per analizzare il nostro traffico. Puoi accettare o rifiutare i cookie modificando le impostazioni del tuo browser.</p>
-        <p>Per ulteriori informazioni, puoi consultare la nostra <a href="#" class="ad-link">Informativa sulla Privacy</a>.</p>
+        <p>Questo sito utilizza i cookie per migliorare l'esperienza dell'utente...</p>
         <button onclick="accettaCookies()">Accetta Cookies</button>
         <button onclick="rifiutaCookies()">Rifiuta Cookies</button>
     </div>
 
-    <!-- Pubblicità in alto -->
     <div class="ad-banner">
         <strong>Incredibile Offerta!</strong> Prova il nostro nuovo servizio di streaming video. <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">Clicca qui per iniziare la prova gratuita!</span>
     </div>
 
-    <!-- Layout principale con pubblicità laterali -->
     <div class="sidebar-container">
         <div class="sidebar-ad">
             <strong>Fai il pieno di energia!</strong> Scopri i nostri integratori naturali. <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">Clicca qui!</span>
@@ -221,7 +209,6 @@
         </div>
     </div>
 
-    <!-- Prima schermata -->
     <div class="container" id="primaSchermata">
         <h1>Dammi i Numeri Fortunati</h1>
 
@@ -261,7 +248,6 @@
         <button class="button" onclick="vaiAllaSecondaSchermata()">Dammi i Numeri Fortunati</button>
     </div>
 
-    <!-- Seconda schermata -->
     <div class="container hidden" id="secondaSchermata">
         <h1>Numeri Fortunati Generati</h1>
         <div class="numeri-container" id="numeriGenerati"></div>
@@ -269,63 +255,73 @@
     </div>
 
     <script>
-        let numeriEsclusi = [];
-        let escludiVisibile = false;
+        let esclusi = [];
 
-        function accettaCookies() {
-            document.getElementById('cookiePopup').style.display = 'none';
-        }
-
-        function rifiutaCookies() {
-            document.getElementById('cookiePopup').style.display = 'none';
-        }
-
-        function toggleEscludi() {
-            escludiVisibile = !escludiVisibile;
-            document.getElementById('escludi-container').style.display = escludiVisibile ? 'block' : 'none';
-            if (escludiVisibile) {
-                // Mostra il pallino
-                document.querySelector('.pallino').style.display = 'inline-block';
-            } else {
-                // Nascondi il pallino
-                document.querySelector('.pallino').style.display = 'none';
-                // Rimuovi i numeri esclusi
-                numeriEsclusi = [];
-                document.getElementById('escludi').value = '';
-            }
-        }
-
-        function vaiAllaSecondaSchermata() {
-            const min = parseInt(document.getElementById('min').value);
-            const max = parseInt(document.getElementById('max').value);
-            const quantita = parseInt(document.getElementById('quantita').value);
-            const escludiString = document.getElementById('escludi').value;
-
-            // Aggiorna la lista dei numeri esclusi
-            if (escludiString) {
-                numeriEsclusi = escludiString.split(',').map(num => parseInt(num.trim())).filter(num => !isNaN(num));
-            }
-
+        function generaNumeri(quantita, min, max) {
             const numeriGenerati = [];
+            const esclusiSet = new Set(esclusi);
+
             while (numeriGenerati.length < quantita) {
                 const numero = Math.floor(Math.random() * (max - min + 1)) + min;
-                if (!numeriGenerati.includes(numero) && !numeriEsclusi.includes(numero)) {
+                if (!numeriGenerati.includes(numero) && !esclusiSet.has(numero)) {
                     numeriGenerati.push(numero);
                 }
             }
+            return numeriGenerati;
+        }
 
-            document.getElementById('numeriGenerati').innerHTML = numeriGenerati.map(num => `<div class="numero">${num}</div>`).join('');
-            document.getElementById('primaSchermata').classList.add('hidden');
-            document.getElementById('secondaSchermata').classList.remove('hidden');
+        function vaiAllaSecondaSchermata() {
+            const quantita = parseInt(document.getElementById("quantita").value);
+            const min = parseInt(document.getElementById("min").value);
+            const max = parseInt(document.getElementById("max").value);
+
+            // Recupera i numeri esclusi
+            const nuoviEsclusi = document.getElementById("escludi").value.split(',')
+                .map(num => parseInt(num.trim()))
+                .filter(num => num >= min && num <= max);
+            
+            // Aggiorna l'array degli esclusi
+            esclusi = [...new Set([...esclusi, ...nuoviEsclusi])];
+
+            const numeriGenerati = generaNumeri(quantita, min, max);
+            document.getElementById("numeriGenerati").innerHTML = numeriGenerati.map(num => `<div class="numero">${num}</div>`).join('');
+            document.getElementById("secondaSchermata").classList.remove("hidden");
+            document.getElementById("primaSchermata").classList.add("hidden");
+            // Nascondi il pallino dopo la generazione dei numeri
+            document.querySelector(".pallino").style.display = "none";
         }
 
         function tornaAllaPrimaSchermata() {
-            document.getElementById('secondaSchermata').classList.add('hidden');
-            document.getElementById('primaSchermata').classList.remove('hidden');
+            document.getElementById("primaSchermata").classList.remove("hidden");
+            document.getElementById("secondaSchermata").classList.add("hidden");
+            // Mostra il pallino quando si torna alla prima schermata
+            document.querySelector(".pallino").style.display = "inline-block";
+        }
+
+        function toggleEscludi() {
+            const escludiContainer = document.getElementById("escludi-container");
+            escludiContainer.style.display = escludiContainer.style.display === "none" ? "block" : "none";
+            if (escludiContainer.style.display === "block") {
+                // Mostra il pallino all'apertura
+                document.querySelector(".pallino").style.display = "inline-block";
+            } else {
+                // Nascondi il pallino quando esce dalla vista
+                document.querySelector(".pallino").style.display = "none";
+            }
+        }
+
+        function accettaCookies() {
+            document.getElementById("cookiePopup").style.display = "none";
+        }
+
+        function rifiutaCookies() {
+            document.getElementById("cookiePopup").style.display = "none";
         }
 
         window.onload = function() {
-            document.getElementById('cookiePopup').style.display = 'flex'; // Mostra il popup dei cookies all'apertura
+            document.getElementById("cookiePopup").style.display = "flex";
+            // Mostra il pallino all'apertura della pagina
+            document.querySelector(".pallino").style.display = "inline-block";
         }
     </script>
 </body>
