@@ -6,7 +6,7 @@
     <title>Dammi i Numeri Fortunati</title>
     <style>
         body {
-            font-family: "Times New Roman", Times, serif; /* Cambiato font */
+            font-family: "Times New Roman", Times, serif;
             margin: 0;
             padding: 0;
             background-color: #4a57b2;
@@ -18,18 +18,18 @@
         }
 
         .container {
-            background-color: #5263BD; /* Cambiato sfondo */
+            background-color: #5263BD;
             color: white;
             padding: 20px;
             text-align: center;
             border-radius: 0px;
-            width: 90%; /* Rende la larghezza mobile-friendly */
+            width: 90%;
             max-width: 600px;
             position: relative;
         }
 
         h1 {
-            background-color: #9c27b0; /* Cambiato colore titolo per abbinarlo al pulsante */
+            background-color: #9c27b0;
             color: white;
             padding: 15px;
             border-radius: 0px;
@@ -72,7 +72,7 @@
         .pallino {
             width: 20px;
             height: 20px;
-            background-color: white;
+            background-color: #ffffff; /* Colore pallino bianco */
             border-radius: 50%;
             display: inline-block;
             margin-top: 10px;
@@ -81,7 +81,7 @@
 
         .button {
             padding: 12px 20px;
-            background-color: #9c27b0; /* Stesso colore per entrambi i pulsanti */
+            background-color: #9c27b0;
             color: white;
             border: none;
             cursor: pointer;
@@ -117,17 +117,17 @@
             padding: 10px;
             margin-bottom: 20px;
             text-align: center;
-            border-radius: 10px; /* Cambiato per riquadri più morbidi */
+            border-radius: 10px;
         }
 
         /* Popup per i cookies */
         #cookiePopup {
             position: fixed;
-            top: 0; /* Posizionato in alto */
-            left: 0; /* Posizionato a sinistra */
-            width: 100%; /* Copre l'intera larghezza */
-            height: 100%; /* Copre l'intera altezza */
-            background-color: rgba(255, 255, 255, 0.9); /* Sfondo semi-trasparente */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
             color: #000;
             padding: 15px;
             border: 1px solid #ccc;
@@ -140,13 +140,13 @@
         }
 
         #cookiePopup button {
-            background-color: #9c27b0; /* Stesso colore dei pulsanti */
+            background-color: #9c27b0;
             color: white;
             border: none;
-            padding: 10px 20px; /* Aumentato il padding per i pulsanti */
+            padding: 10px 20px;
             cursor: pointer;
-            margin: 10px; /* Spaziatura tra i pulsanti */
-            font-size: 18px; /* Aumentato il font */
+            margin: 10px;
+            font-size: 18px;
         }
 
         .ad-link {
@@ -161,9 +161,9 @@
             color: black;
             padding: 10px;
             text-align: center;
-            margin: 10px 0; /* Spaziatura verticale */
-            border-radius: 10px; /* Cambiato per riquadri più morbidi */
-            width: 150px; /* Larghezza fissa per le pubblicità */
+            margin: 10px 0;
+            border-radius: 10px;
+            width: 150px;
         }
 
         /* Layout delle pubblicità laterali */
@@ -171,12 +171,12 @@
             display: flex;
             justify-content: space-between;
             width: 100%;
-            flex-wrap: wrap; /* Permette il wrapping delle pubblicità */
+            flex-wrap: wrap;
             position: absolute;
-            top: 50%; /* Posizionato a metà pagina */
-            transform: translateY(-50%); /* Centra verticalmente */
-            left: 10px; /* Distanza dalla sinistra */
-            right: 10px; /* Distanza dalla destra */
+            top: 50%;
+            transform: translateY(-50%);
+            left: 10px;
+            right: 10px;
         }
 
         /* Nasconde la seconda schermata */
@@ -187,12 +187,12 @@
         /* Contenitore delle pubblicità laterali per tutte le schermate */
         .side-ads {
             display: flex;
-            flex-direction: column; /* Colonne per le pubblicità */
-            align-items: flex-start; /* Allinea a sinistra */
+            flex-direction: column;
+            align-items: flex-start;
             position: absolute;
-            top: 20px; /* Margine superiore */
-            height: calc(100% - 40px); /* L'altezza della finestra */
-            z-index: 1; /* Sotto i contenuti principali */
+            top: 20px;
+            height: calc(100% - 40px);
+            z-index: 1;
         }
     </style>
 </head>
@@ -200,7 +200,7 @@
 
     <!-- Popup per i cookies -->
     <div id="cookiePopup">
-        <p>Questo sito utilizza i cookie per migliorare l'esperienza dell'utente. Utilizziamo i cookie per raccogliere informazioni sulle modalità di utilizzo del sito, per consentire funzionalità di social media e per analizzare il nostro traffico. Condividiamo anche informazioni sul modo in cui utilizzi il nostro sito con i nostri partner di social media, pubblicità e analisi, i quali potrebbero combinarle con altre informazioni che hai fornito loro o che hanno raccolto dal tuo utilizzo dei loro servizi. Puoi accettare o rifiutare i cookie modificando le impostazioni del tuo browser.</p>
+        <p>Questo sito utilizza i cookie per migliorare l'esperienza dell'utente. Utilizziamo i cookie per raccogliere informazioni sulle modalità di utilizzo del sito, per consentire funzionalità di social media e per analizzare il nostro traffico. Puoi accettare o rifiutare i cookie modificando le impostazioni del tuo browser.</p>
         <p>Per ulteriori informazioni, puoi consultare la nostra <a href="#" class="ad-link">Informativa sulla Privacy</a>.</p>
         <button onclick="accettaCookies()">Accetta Cookies</button>
         <button onclick="rifiutaCookies()">Rifiuta Cookies</button>
@@ -247,7 +247,7 @@
                 <option value="7">7</option>
                 <option value="8">8</option>
                 <option value="9">9</option>
-                <option value="10">10</option> <!-- Aumentato a 10 -->
+                <option value="10">10</option>
             </select>
         </div>
 
@@ -269,53 +269,63 @@
     </div>
 
     <script>
-        function generaNumeri(quantita, min, max, esclusi) {
-            const numeriGenerati = [];
-            const esclusiSet = new Set(esclusi);
-
-            while (numeriGenerati.length < quantita) {
-                const numero = Math.floor(Math.random() * (max - min + 1)) + min;
-                if (!numeriGenerati.includes(numero) && !esclusiSet.has(numero)) {
-                    numeriGenerati.push(numero);
-                }
-            }
-            return numeriGenerati;
-        }
-
-        function vaiAllaSecondaSchermata() {
-            const quantita = parseInt(document.getElementById("quantita").value);
-            const min = parseInt(document.getElementById("min").value);
-            const max = parseInt(document.getElementById("max").value);
-            const esclusiInput = document.getElementById("escludi").value;
-            const esclusi = esclusiInput.split(",").map(num => num.trim()).filter(num => num !== "").map(Number);
-
-            const numeriGenerati = generaNumeri(quantita, min, max, esclusi);
-            const numeriGeneratiDiv = document.getElementById("numeriGenerati");
-            numeriGeneratiDiv.innerHTML = numeriGenerati.map(num => `<div class="numero">${num}</div>`).join("");
-            document.getElementById("primaSchermata").classList.add("hidden");
-            document.getElementById("secondaSchermata").classList.remove("hidden");
-        }
-
-        function tornaAllaPrimaSchermata() {
-            document.getElementById("secondaSchermata").classList.add("hidden");
-            document.getElementById("primaSchermata").classList.remove("hidden");
-        }
-
-        function toggleEscludi() {
-            const escludiContainer = document.getElementById("escludi-container");
-            escludiContainer.style.display = escludiContainer.style.display === "none" ? "block" : "none";
-        }
+        let numeriEsclusi = [];
+        let escludiVisibile = false;
 
         function accettaCookies() {
-            document.getElementById("cookiePopup").style.display = "none";
+            document.getElementById('cookiePopup').style.display = 'none';
         }
 
         function rifiutaCookies() {
-            document.getElementById("cookiePopup").style.display = "none";
+            document.getElementById('cookiePopup').style.display = 'none';
+        }
+
+        function toggleEscludi() {
+            escludiVisibile = !escludiVisibile;
+            document.getElementById('escludi-container').style.display = escludiVisibile ? 'block' : 'none';
+            if (escludiVisibile) {
+                // Mostra il pallino
+                document.querySelector('.pallino').style.display = 'inline-block';
+            } else {
+                // Nascondi il pallino
+                document.querySelector('.pallino').style.display = 'none';
+                // Rimuovi i numeri esclusi
+                numeriEsclusi = [];
+                document.getElementById('escludi').value = '';
+            }
+        }
+
+        function vaiAllaSecondaSchermata() {
+            const min = parseInt(document.getElementById('min').value);
+            const max = parseInt(document.getElementById('max').value);
+            const quantita = parseInt(document.getElementById('quantita').value);
+            const escludiString = document.getElementById('escludi').value;
+
+            // Aggiorna la lista dei numeri esclusi
+            if (escludiString) {
+                numeriEsclusi = escludiString.split(',').map(num => parseInt(num.trim())).filter(num => !isNaN(num));
+            }
+
+            const numeriGenerati = [];
+            while (numeriGenerati.length < quantita) {
+                const numero = Math.floor(Math.random() * (max - min + 1)) + min;
+                if (!numeriGenerati.includes(numero) && !numeriEsclusi.includes(numero)) {
+                    numeriGenerati.push(numero);
+                }
+            }
+
+            document.getElementById('numeriGenerati').innerHTML = numeriGenerati.map(num => `<div class="numero">${num}</div>`).join('');
+            document.getElementById('primaSchermata').classList.add('hidden');
+            document.getElementById('secondaSchermata').classList.remove('hidden');
+        }
+
+        function tornaAllaPrimaSchermata() {
+            document.getElementById('secondaSchermata').classList.add('hidden');
+            document.getElementById('primaSchermata').classList.remove('hidden');
         }
 
         window.onload = function() {
-            document.getElementById("cookiePopup").style.display = "flex"; // Mostra il popup come flex
+            document.getElementById('cookiePopup').style.display = 'flex'; // Mostra il popup dei cookies all'apertura
         }
     </script>
 </body>
