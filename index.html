@@ -109,7 +109,7 @@
         }
 
         .ad-banner {
-            background-color: #ddd;
+            background-color: white; /* Cambiato il colore in bianco */
             color: black;
             padding: 10px;
             margin-bottom: 20px;
@@ -152,7 +152,7 @@
         }
 
         .sidebar-ad {
-            background-color: #ddd;
+            background-color: white; /* Cambiato il colore in bianco */
             color: black;
             padding: 10px;
             text-align: center;
@@ -173,10 +173,6 @@
             right: 10px;
         }
 
-        .hidden {
-            display: none;
-        }
-
         .side-ads {
             display: flex;
             flex-direction: column;
@@ -191,9 +187,10 @@
 <body>
 
     <div id="cookiePopup">
-        <p>Questo sito utilizza i cookie per migliorare l'esperienza dell'utente...</p>
-        <button onclick="accettaCookies()">Accetta Cookies</button>
-        <button onclick="rifiutaCookies()">Rifiuta Cookies</button>
+        <p>Questo sito utilizza i cookie per personalizzare contenuti e annunci, fornire funzionalità di social media e analizzare il nostro traffico. Condividiamo informazioni sul tuo utilizzo del sito con i nostri partner di social media, pubblicità e analisi. Puoi decidere se accettare o rifiutare i cookie utilizzando le opzioni qui sotto.</p>
+        <p>Per maggiori dettagli su come utilizziamo i cookie e le tue preferenze, consulta la nostra <a href="#" class="ad-link">Informativa sulla privacy e sui cookie</a>.</p>
+        <button onclick="accettaCookies()">Accetta tutti i cookie</button>
+        <button onclick="rifiutaCookies()">Rifiuta i cookie non essenziali</button>
     </div>
 
     <div class="ad-banner">
@@ -202,16 +199,16 @@
 
     <div class="sidebar-container">
         <div class="sidebar-ad">
-            <strong>Fai il pieno di energia!</strong> Scopri i nostri integratori naturali. <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">Clicca qui!</span>
+            <strong>Offerta Imperdibile!</strong> Scopri i nostri integratori naturali. <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">Clicca qui!</span>
         </div>
         <div class="sidebar-ad">
-            <strong>Un viaggio da sogno!</strong> Prenota ora e ottieni un'offerta esclusiva per la tua prossima avventura. <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">Clicca qui per maggiori dettagli!</span>
+            <strong>Viaggio dei Sogni!</strong> Prenota ora e ottieni un'offerta esclusiva. <span class="ad-link" onclick="alert('Navigando a: www.esempio.com')">Clicca qui per maggiori dettagli!</span>
         </div>
     </div>
 
+    <!-- Prima schermata -->
     <div class="container" id="primaSchermata">
         <h1>Dammi i Numeri Fortunati</h1>
-
         <div class="settings">
             <label>Intervallo dei Numeri</label>
             <div>
@@ -242,7 +239,7 @@
             <div id="escludi-container" style="display: none;">
                 <input type="text" id="escludi" placeholder="Esempio: 1, 5, 10">
             </div>
-            <span class="pallino" onclick="toggleEscludi()"></span> <!-- Pallino bianco -->
+            <span class="pallino" onclick="toggleEscludi()"></span>
         </div>
 
         <button class="button" onclick="vaiAllaSecondaSchermata()">Dammi i Numeri Fortunati</button>
@@ -255,15 +252,15 @@
     </div>
 
     <script>
-        let esclusi = [];
-
-        function generaNumeri(quantita, min, max) {
+        function generaNumeri(quantita, min, max, esclusi) {
             const numeriGenerati = [];
             const esclusiSet = new Set(esclusi);
 
             while (numeriGenerati.length < quantita) {
                 const numero = Math.floor(Math.random() * (max - min + 1)) + min;
-                if (!numeriGenerati.includes(numero) && !esclusiSet.has(numero)) {
+                
+                // Controlla se il numero è escluso
+                if (!esclusiSet.has(numero)) {
                     numeriGenerati.push(numero);
                 }
             }
@@ -271,42 +268,45 @@
         }
 
         function vaiAllaSecondaSchermata() {
-            const quantita = parseInt(document.getElementById("quantita").value);
             const min = parseInt(document.getElementById("min").value);
             const max = parseInt(document.getElementById("max").value);
+            const quantita = parseInt(document.getElementById("quantita").value);
+            const esclusiInput = document.getElementById("escludi").value;
+            const esclusi = esclusiInput ? esclusiInput.split(',').map(Number).filter(num => num >= min && num <= max) : [];
 
-            // Recupera i numeri esclusi
-            const nuoviEsclusi = document.getElementById("escludi").value.split(',')
-                .map(num => parseInt(num.trim()))
-                .filter(num => num >= min && num <= max);
-            
-            // Aggiorna l'array degli esclusi
-            esclusi = [...new Set([...esclusi, ...nuoviEsclusi])];
+            const numeriGenerati = generaNumeri(quantita, min, max, esclusi);
+            mostraNumeriGenerati(numeriGenerati);
+        }
 
-            const numeriGenerati = generaNumeri(quantita, min, max);
-            document.getElementById("numeriGenerati").innerHTML = numeriGenerati.map(num => `<div class="numero">${num}</div>`).join('');
-            document.getElementById("secondaSchermata").classList.remove("hidden");
-            document.getElementById("primaSchermata").classList.add("hidden");
-            // Nascondi il pallino dopo la generazione dei numeri
-            document.querySelector(".pallino").style.display = "none";
+        function mostraNumeriGenerati(numeri) {
+            document.getElementById("numeriGenerati").innerHTML = '';
+            numeri.forEach(num => {
+                const numeroDiv = document.createElement("div");
+                numeroDiv.classList.add("numero");
+                numeroDiv.textContent = num;
+                document.getElementById("numeriGenerati").appendChild(numeroDiv);
+            });
+            document.getElementById("primaSchermata").style.display = "none";
+            document.getElementById("secondaSchermata").style.display = "block";
         }
 
         function tornaAllaPrimaSchermata() {
-            document.getElementById("primaSchermata").classList.remove("hidden");
-            document.getElementById("secondaSchermata").classList.add("hidden");
-            // Mostra il pallino quando si torna alla prima schermata
-            document.querySelector(".pallino").style.display = "inline-block";
+            document.getElementById("primaSchermata").style.display = "block";
+            document.getElementById("secondaSchermata").style.display = "none";
         }
 
         function toggleEscludi() {
-            const escludiContainer = document.getElementById("escludi-container");
-            escludiContainer.style.display = escludiContainer.style.display === "none" ? "block" : "none";
-            if (escludiContainer.style.display === "block") {
-                // Mostra il pallino all'apertura
-                document.querySelector(".pallino").style.display = "inline-block";
+            const container = document.getElementById("escludi-container");
+            container.style.display = container.style.display === "none" ? "block" : "none";
+            const pallino = document.querySelector('.pallino');
+
+            // Se la lista è chiusa, nascondi il pallino; se è aperta, mostrala
+            if (container.style.display === "none") {
+                pallino.style.display = 'none';
             } else {
-                // Nascondi il pallino quando esce dalla vista
-                document.querySelector(".pallino").style.display = "none";
+                pallino.style.display = 'inline-block';
+                // Nascondi i numeri esclusi se il pallino è cliccato di nuovo
+                document.getElementById("numeriGenerati").innerHTML = '';
             }
         }
 
@@ -315,16 +315,16 @@
         }
 
         function rifiutaCookies() {
+            alert("Cookies non essenziali rifiutati.");
             document.getElementById("cookiePopup").style.display = "none";
         }
 
         window.onload = function() {
             document.getElementById("cookiePopup").style.display = "flex";
-            // Mostra il pallino all'apertura della pagina
-            document.querySelector(".pallino").style.display = "inline-block";
-        }
+        };
     </script>
 </body>
 </html>
+
 
 
